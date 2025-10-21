@@ -1,0 +1,28 @@
+{
+  "name": "Echogram and CTD Data Interpolation",
+  "version": "1.0",
+  "description": "An R project for reading binned acoustic backscatter echogram data and CTD data, implementing 2D interpolation of CTD profiles along each transect using algorithms like DIVA-nd.",
+  "dependencies": {
+    "oce": "latest",
+    "ggplot2": "latest",
+    "dplyr": "latest",
+    "tidyverse": "latest",
+    "akima": "latest",
+    "interp": "latest",
+    "lubridate": "latest"
+  },
+  "scripts": {
+    "main": "main.R",
+    "data_processing": "data_processing.R",
+    "interpolation": "interpolation.R",
+    "visualization": "visualization.R"
+  },
+  "data": {
+    "echogram_data": "path/to/echogram_data.csv",
+    "ctd_data": "path/to/ctd_data.csv"
+  },
+  "output": {
+    "interpolated_profiles": "output/interpolated_profiles.csv",
+    "visualizations": "output/visualizations/"
+  }
+}

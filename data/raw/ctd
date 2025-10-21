@@ -1,0 +1,44 @@
+{
+  "name": "Echogram_Analysis",
+  "version": "1.0",
+  "description": "An R project for analyzing binned acoustic backscatter echogram data and CTD data with 2D interpolation.",
+  "main": "main.R",
+  "scripts": {
+    "install": "install.packages(c('oce', 'ggplot2', 'dplyr', 'tidyverse', 'viridis', 'akima', 'interp'))",
+    "run": "Rscript main.R"
+  },
+  "dependencies": {
+    "oce": "latest",
+    "ggplot2": "latest",
+    "dplyr": "latest",
+    "tidyverse": "latest",
+    "viridis": "latest",
+    "akima": "latest",
+    "interp": "latest"
+  },
+  "files": [
+    {
+      "name": "data",
+      "type": "folder",
+      "files": [
+        {
+          "name": "echogram_data.csv",
+          "type": "file"
+        },
+        {
+          "name": "ctd_data.csv",
+          "type": "file"
+        }
+      ]
+    },
+    {
+      "name": "main.R",
+      "type": "file",
+      "content": "library(oce)\nlibrary(ggplot2)\nlibrary(dplyr)\nlibrary(tidyverse)\nlibrary(viridis)\nlibrary(akima)\nlibrary(interp)\n\necho_data <- read.csv('data/echogram_data.csv')\nctd_data <- read.csv('data/ctd_data.csv')\n\ntransects <- unique(echo_data$transect)\n\nfor (transect in transects) {\n  transect_data <- echo_data %>% filter(transect == !!transect)\n  ctd_transect <- ctd_data %>% filter(transect == !!transect)\n\n  interp_result <- interp(ctd_transect$distance, ctd_transect$depth, ctd_transect$variable, linear = TRUE)\n\n  plot_data <- as.data.frame(interp_result)\n  ggplot(plot_data, aes(x = x, y = y, fill = z)) +\n    geom_raster() +\n    scale_fill_viridis() +\n    labs(title = paste('CTD Interpolation for Transect', transect), x = 'Distance', y = 'Depth') +\n    theme_minimal() +\n    ggsave(paste0('output/CTD_Interpolation_', transect, '.png'))\n}"
+    },
+    {
+      "name": "output",
+      "type": "folder"
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "name": "Echogram and CTD Interpolation Project",
+  "version": "1.0",
+  "description": "A project to read and interpolate echogram and CTD data.",
+  "main": "main.R",
+  "scripts": {
+    "install": [
+      "install.packages(c('dplyr', 'ggplot2', 'akima', 'lubridate', 'oce'))"
+    ],
+    "run": "Rscript main.R"
+  },
+  "dependencies": {
+    "dplyr": "^1.0.7",
+    "ggplot2": "^3.3.5",
+    "akima": "^0.6-2",
+    "lubridate": "^1.7.10",
+    "oce": "^1.5-0"
+  },
+  "files": [
+    {
+      "name": "data",
+      "type": "folder",
+      "description": "Folder to store input data files."
+    },
+    {
+      "name": "output",
+      "type": "folder",
+      "description": "Folder to store output results."
+    },
+    {
+      "name": "main.R",
+      "type": "file",
+      "description": "Main script to read data and perform interpolation."
+    },
+    {
+      "name": "functions.R",
+      "type": "file",
+      "description": "File containing custom functions for data processing."
+    }
+  ]
+}

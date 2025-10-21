@@ -1,0 +1,66 @@
+{
+  "name": "Echogram and CTD Interpolation Project",
+  "version": "1.0",
+  "description": "A project to read and interpolate echogram and CTD data.",
+  "main": "main.R",
+  "scripts": {
+    "install": [
+      "install.packages(c('dplyr', 'ggplot2', 'akima', 'lubridate', 'oce'))"
+    ],
+    "run": "Rscript main.R"
+  },
+  "dependencies": {
+    "dplyr": "^1.0.7",
+    "ggplot2": "^3.3.5",
+    "akima": "^0.6-3",
+    "lubridate": "^1.7.10",
+    "oce": "^1.5-1"
+  },
+  "files": [
+    {
+      "name": "data",
+      "type": "directory",
+      "files": [
+        {
+          "name": "echogram_data.csv",
+          "type": "file"
+        },
+        {
+          "name": "ctd_data.csv",
+          "type": "file"
+        }
+      ]
+    },
+    {
+      "name": "main.R",
+      "type": "file",
+      "content": [
+        "library(dplyr)",
+        "library(ggplot2)",
+        "library(akima)",
+        "library(lubridate)",
+        "library(oce)",
+        "",
+        "echogram_data <- read.csv('data/echogram_data.csv')",
+        "ctd_data <- read.csv('data/ctd_data.csv')",
+        "",
+        "ctd_interpolated <- function(ctd_data) {",
+        "  interp_result <- interp(ctd_data$Int, ctd_data$Depth, ctd_data$Sigma,",
+        "                          linear = TRUE, duplicate = 'mean')",
+        "  return(interp_result)",
+        "}",
+        "",
+        "interpolated_profiles <- lapply(split(ctd_data, ctd_data$Transect), ctd_interpolated)",
+        "",
+        "for (i in seq_along(interpolated_profiles)) {",
+        "  profile <- interpolated_profiles[[i]]",
+        "  ggplot(data = profile, aes(x = Interval, y = Depth, fill = Sigma)) +",
+        "    geom_raster() +",
+        "    scale_y_reverse() +",
+        "    labs(title = paste('CTD Profile for Transect', i)) +",
+        "    theme_minimal()",
+        "}"
+      ]
+    }
+  ]
+}

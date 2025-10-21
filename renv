@@ -1,0 +1,49 @@
+{
+  "name": "Echogram and CTD Interpolation Project",
+  "version": "1.0",
+  "description": "A project to read and interpolate binned acoustic backscatter echogram data and CTD data.",
+  "main": "main.R",
+  "scripts": {
+    "install": [
+      "install.packages(c('dplyr', 'ggplot2', 'akima', 'oce', 'lubridate'))"
+    ],
+    "run": "Rscript main.R"
+  },
+  "dependencies": {
+    "dplyr": "^1.0.7",
+    "ggplot2": "^3.3.5",
+    "akima": "^0.6-2",
+    "oce": "^1.5-0",
+    "lubridate": "^1.7.10"
+  },
+  "files": [
+    {
+      "name": "data",
+      "type": "folder",
+      "files": [
+        {
+          "name": "echogram_data.csv",
+          "type": "file"
+        },
+        {
+          "name": "ctd_data.csv",
+          "type": "file"
+        }
+      ]
+    },
+    {
+      "name": "src",
+      "type": "folder",
+      "files": [
+        {
+          "name": "main.R",
+          "type": "file"
+        },
+        {
+          "name": "interpolation_functions.R",
+          "type": "file"
+        }
+      ]
+    }
+  ]
+}
